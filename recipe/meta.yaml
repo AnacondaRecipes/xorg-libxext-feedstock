@@ -54,6 +54,7 @@ test:
     {% for lib_ident in lib_idents %}
     - test -f $PREFIX/lib/lib{{ lib_ident }}.dylib  # [osx]
     - test -f $PREFIX/lib/lib{{ lib_ident }}.so     # [linux]
+    - if not exist %LIBRARY_LIB%/lib{{ lib_ident }}.a exit /b 1    # [win]
     {% endfor %}
 
 about:
