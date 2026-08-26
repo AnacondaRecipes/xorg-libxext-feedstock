@@ -42,9 +42,7 @@ requirements:
     - libtool                      # [unix]
   host:
     - pthread-stubs
-    - xorg-libx11 >=1.6,<2
-    # Additional constraintless xorg-libx11 dep below is for conda-build to add potential pinning to.
-    - xorg-libx11
+    - xorg-libx11 ==1.8.12
     - xorg-util-macros
   run:
     - {{ pin_compatible('xorg-libx11') }}
