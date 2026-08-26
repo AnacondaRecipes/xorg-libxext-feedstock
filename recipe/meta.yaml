@@ -10,9 +10,6 @@ package:
 source:
   url: https://www.x.org/releases/individual/{{ xorg_category }}/{{ xorg_name }}-{{ version }}.tar.xz
   sha256: 6c643c7035cdacf67afd68f25d01b90ef889d546c9fcd7c0adf7c2cf91e3a32d
-  patches:
-    # Remove it when autoconf 2.70 will be available
-    - autoconf-269-compat.patch  # [win]
 
 build:
   number: 0
@@ -23,23 +20,15 @@ build:
 
 requirements:
   build:
-    - {{ stdlib("c") }}          # [unix]
-    - {{ compiler("c") }}          # [unix]
-    - {{ compiler("m2w64_c") }}    # [win]
-    - m2-patch                     # [win]
-    - m2-autoconf                  # [win]
-    - m2-automake{{ am_version }}  # [win]
-    - m2-libtool                   # [win]
-    - pkg-config                   # [unix]
-    - m2-pkg-config                # [win]
-    - gnuconfig                    # [unix]
-    - m2-base                      # [win]
-    - make                         # [unix]
-    - m2-make                      # [win]
-    - autoconf                     # [unix]
-    - automake                     # [unix]
-    - gettext                      # [unix]
-    - libtool                      # [unix]
+    - {{ stdlib("c") }}
+    - {{ compiler("c") }}
+    - pkg-config
+    - gnuconfig
+    - make
+    - autoconf
+    - automake
+    - gettext
+    - libtool
   host:
     - pthread-stubs
     - xorg-libx11 >=1.6,<2
@@ -55,7 +44,6 @@ test:
     {% for lib_ident in lib_idents %}
     - test -f $PREFIX/lib/lib{{ lib_ident }}.dylib  # [osx]
     - test -f $PREFIX/lib/lib{{ lib_ident }}.so     # [linux]
-    - if not exist %LIBRARY_LIB%/lib{{ lib_ident }}.a exit /b 1    # [win]
     {% endfor %}
 
 about:
