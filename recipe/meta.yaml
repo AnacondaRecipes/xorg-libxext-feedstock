@@ -17,7 +17,7 @@ source:
 build:
   number: 0
   # xorg-libxdmcp, libxcb, libx11 aren't available on Windows because their dependencies clash with m2/msys2 and mingw64/ucrt64 toolchains.
-  # skip: true  # [win]
+  skip: true  # [win]
   run_exports:
     - {{ pin_subpackage(name|lower) }}
 
@@ -42,7 +42,9 @@ requirements:
     - libtool                      # [unix]
   host:
     - pthread-stubs
-    - xorg-libx11 ==1.8.12
+    - xorg-libx11 >=1.6,<2
+    # Additional constraintless xorg-libx11 dep below is for conda-build to add potential pinning to.
+    - xorg-libx11
     - xorg-util-macros
   run:
     - {{ pin_compatible('xorg-libx11') }}
